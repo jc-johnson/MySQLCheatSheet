@@ -1,0 +1,145 @@
+My SQL Cheatsheet
+
+------------------------------------------
+
+/** Create Database **/
+
+CREATE DATABASE testDB;
+
+
+/** Backup Database **/
+
+BACKUP DATABASE testDB
+TO DISK = 'D:\backups\testDB.bak';
+
+
+/** Create Table **/
+
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255) 
+);
+
+/** Drop **/
+DROP DATABASE testDB;
+DROP TABLE Shippers;
+TRUNCATE TABLE table_name;
+
+/** Note **/
+The following constraints are commonly used in SQL:
+
+	NOT NULL - Ensures that a column cannot have a NULL value
+	UNIQUE - Ensures that all values in a column are different
+	PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+	FOREIGN KEY - Uniquely identifies a row/record in another table
+	CHECK - Ensures that all values in a column satisfies a specific condition
+	DEFAULT - Sets a default value for a column when no value is specified
+	INDEX - Used to create and retrieve data from the database very quickly
+	AUTO_INCREMENT 
+	
+/** Not Null**/
+
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+/** Unique **/
+
+CREATE TABLE Persons (
+    ID int NOT NULL UNIQUE,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+/** Primary Key **/
+
+CREATE TABLE Persons (
+    ID int NOT NULL PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+	
+/** Foreign Key **/
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+
+/** Check **/
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age>=18)
+);
+
+/** Default **/
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Sandnes'
+);
+
+/** Auto Increment **/
+CREATE TABLE Persons (
+    Personid int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (Personid)
+);
+
+/** Dates **/
+SQL Server comes with the following data types for storing a date or a date/time value in the database:
+
+DATE - format YYYY-MM-DD
+DATETIME - format: YYYY-MM-DD HH:MI:SS
+SMALLDATETIME - format: YYYY-MM-DD HH:MI:SS
+TIMESTAMP - format: a unique number
+
+SELECT * FROM Orders WHERE OrderDate='2008-11-11'
+
+
+/** Views **/
+CREATE VIEW [Brazil Customers] AS
+SELECT CustomerName, ContactName
+FROM Customers
+WHERE Country = "Brazil";
+
+/** Insert Into **/
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway');
+
+The following statements would create six records in the CUSTOMERS table.
+
+INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)
+VALUES (1, 'Ramesh', 32, 'Ahmedabad', 2000.00 );
+
+INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)
+VALUES (2, 'Khilan', 25, 'Delhi', 1500.00 );
+
+INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)
+VALUES (3, 'kaushik', 23, 'Kota', 2000.00 );
+
+INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)
+VALUES (4, 'Chaitali', 25, 'Mumbai', 6500.00 );
+
+INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)
+VALUES (5, 'Hardik', 27, 'Bhopal', 8500.00 );
+
+INSERT INTO CUSTOMERS (ID,NAME,AGE,ADDRESS,SALARY)
+VALUES (6, 'Komal', 22, 'MP', 4500.00 );
